@@ -25,7 +25,7 @@ public class App {
     // Capacitat inicial
     public static final int CAPACITAT_ESTANDARD = 30; //30
     public static final int CAPACITAT_SUITE = 20;
-    public static final int CAPACITAT_DELUXE = 10;
+    public static final int CAPACITAT_DELUXE = 1;
 
     // IVA
     public static final float IVA = 0.21f;
@@ -176,7 +176,7 @@ public class App {
 
             // ara cridem a generarCodiReserva pero a que ens genere el codi i el mostre,
             codi = generarCodiReserva();
-            System.out.println("\nCodi de reserva: " + codi);
+            System.out.println("\nCodi de reserva: " + codi + "\n");
 
 
            
@@ -254,7 +254,7 @@ public class App {
             return TipoHabitacio;
 
         }
-        else System.out.println("\nNo tenim ninguna habitacio " + TipoHabitacio + " disponible.");
+        else System.out.println("\n***** No tenim ninguna habitacio " + TipoHabitacio + " disponible. *****");
                 
         return "null";
     }
@@ -459,14 +459,14 @@ public class App {
        
 
 
-        // System.out.println("\n ===== Consultar disponibilitat ===== \n");
-        // System.out.println("Tipus    | Lliures | Ocupades |");
-        // System.out.println("------------------------------");
-        // System.out.println("Estàndar |    " + disponibilitatHabitacions.get(TIPUS_ESTANDARD) + "   |    " + (30-disponibilitatHabitacions.get(TIPUS_ESTANDARD))); 
-        // System.out.println("------------------------------");
-        // System.out.println("Suite    |    " + disponibilitatHabitacions.get(TIPUS_SUITE) + "   |    " + (20-disponibilitatHabitacions.get(TIPUS_SUITE)));
-        // System.out.println("------------------------------");
-        // System.out.println("Deluxe   |    " + disponibilitatHabitacions.get(TIPUS_DELUXE) + "   |    " + (10-disponibilitatHabitacions.get(TIPUS_DELUXE)));
+        System.out.println("\n ===== DISPONIBILITAT D'HABITACIONS ===== \n");
+        System.out.println("Tipus    | Lliures | Ocupades |");
+        System.out.println("------------------------------");
+        System.out.println("Estàndar |    " + disponibilitatHabitacions.get(TIPUS_ESTANDARD) + "   |    " + (CAPACITAT_ESTANDARD-disponibilitatHabitacions.get(TIPUS_ESTANDARD))); 
+        System.out.println("------------------------------");
+        System.out.println("Suite    |    " + disponibilitatHabitacions.get(TIPUS_SUITE) + "   |    " + (CAPACITAT_SUITE-disponibilitatHabitacions.get(TIPUS_SUITE)));
+        System.out.println("------------------------------");
+        System.out.println("Deluxe   |    " + disponibilitatHabitacions.get(TIPUS_DELUXE) + "   |    " + (CAPACITAT_DELUXE-disponibilitatHabitacions.get(TIPUS_DELUXE)));
     
     }
 
