@@ -126,7 +126,7 @@ public class App {
             
             break;
             
-        case 5:
+        case 5: obtindreReserva();
             
             break;            
        
@@ -420,7 +420,7 @@ public class App {
         
         boolean trovat = false;    
             do {
-                    // asigna un codi aleatori i comproba que no existisca, mirant el le hashmap de reserves. 
+                    // asigna un codi aleatori i comproba que no existisca, mirant en le hashmap de reserves. 
                     // si existeix, asigna un altre.
                 codiReserva = random.nextInt(899)+100;  
                 trovat = false;
@@ -429,11 +429,7 @@ public class App {
 
                     if(codiReserva == valor)  trovat = true;
 
-                }
-               
-              
-
-                
+                }             
             } while (trovat);       
 
         return codiReserva;
@@ -476,7 +472,8 @@ public class App {
      */
     public static void llistarReservesPerTipus(int[] codis, String tipus) {
          // TODO: Implementar recursivitat
-       
+
+         
          
     }
 
@@ -486,7 +483,44 @@ public class App {
     public static void obtindreReserva() {
         System.out.println("\n===== CONSULTAR RESERVA =====");
         // TODO: Mostrar dades d'una reserva concreta
- 
+
+        int codi;
+        boolean existeix = false;
+
+        // cree un ArraYList per guardar els valors a mostrar, ya que per defecte venen amb el preu
+        ArrayList <String> dadesReserva = new ArrayList<>(); 
+
+       codi = llegirEnter("\nIntrodueix el codi de reserva: "); // demane el codi
+       
+
+       // busque si existeix
+       for(Integer cod : reserves.keySet()){
+        
+            if (codi == cod) existeix = true;
+       }
+          
+       if (existeix){
+
+            // Obtinc els camps de serveis extra y els copie en el ArrayList
+            for (String st : reserves.get(codi)){
+
+                    dadesReserva.add(st);        
+
+            }
+            // Imprimisc els valors de la reserva
+            System.out.println("\nDades de la reserva: \n");
+            System.out.println("* Tipus d'habitació: " + dadesReserva.get(0));
+            System.out.println("* Cost total: " + dadesReserva.get(1) + " €");
+            System.out.println("* Serveis addicionals: ");
+
+            // Si el campo NO esta vuit, l'imprimisc.
+            if(!dadesReserva.get(2).equals("")) System.out.println("    - Esmorzar");
+            if(!dadesReserva.get(3).equals("")) System.out.println("    - Gimnàs");
+            if(!dadesReserva.get(4).equals("")) System.out.println("    - Spa");
+            if(!dadesReserva.get(5).equals("")) System.out.println("    - Piscina");
+
+       } else System.out.println("\nNo s'ha trobat cap reserva amb aquest codi.\n"); // si no trova el codi mostra avis.
+
     }
 
     /**
