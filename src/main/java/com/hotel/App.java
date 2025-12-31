@@ -170,12 +170,7 @@ public class App {
             dadesReserva = seleccionarServeis();
 
             // cridem a calcularPreuTotal que ens torna el total i tambe ens mostra el preu de la reserva.
-            preuTotal = calcularPreuTotal(habitacioSeleccionada,dadesReserva);  // calcule el preu total.   
-
-            // String preutotalString = String.format("%.2f", preuTotal);  // pase le preu a String amb format de 2 digits.
-            // System.out.println(s);
-            // s = s.replace(",",".");
-            // System.out.println("---" +s);        
+            preuTotal = calcularPreuTotal(habitacioSeleccionada,dadesReserva);  // calcule el preu total.  
 
             // cridem a generarCodiReserva per a que ens genere el codi i el mostre.
             codi = generarCodiReserva();
@@ -567,17 +562,7 @@ public class App {
      * Consulta i mostra en detall la informació d'una reserva.
      */
     public static void mostrarDadesReserva(int codi) {
-
-        // cree un ArraYList per guardar els valors a mostrar, ya que per defecte venen amb el preu
-        ArrayList <String> dadesReserva = new ArrayList<>(); 
-
-       // Obtinc els camps de serveis extra y els copie en el ArrayList. 
-       // Es a dir, el for retorna els valor asociats de la clau del codi demanat.
-            for (String st : reserves.get(codi)){
-
-                    dadesReserva.add(st);        
-
-            }
+        
             // Imprimisc els valors de la reserva. 
             // arrayreserves.get(codi).get(0) = el primer get va a la clau del codi que busque i em torna els valors del array. 
             // En el segon get, faig referencia a un camp en concret de ixe array. 
