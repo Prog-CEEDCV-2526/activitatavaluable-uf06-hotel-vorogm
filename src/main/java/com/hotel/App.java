@@ -23,9 +23,9 @@ public class App {
     public static final String SERVEI_PISCINA = "Piscina";
 
     // Capacitat inicial
-    public static final int CAPACITAT_ESTANDARD = 30; //30
+    public static final int CAPACITAT_ESTANDARD = 30; 
     public static final int CAPACITAT_SUITE = 20;
-    public static final int CAPACITAT_DELUXE = 1;
+    public static final int CAPACITAT_DELUXE = 10;
 
     // IVA
     public static final float IVA = 0.21f;
@@ -122,7 +122,7 @@ public class App {
         case 3: consultarDisponibilitat();
             
             break;
-        case 4:
+        case 4: obtindreReservaPerTipus();
             
             break;
             
@@ -131,12 +131,8 @@ public class App {
             break;            
        
         default: System.out.println("\n\nHas de introduir un nombre entre el 1 i el 6.");
-            break;
-            
-            
-            // int totatDisponible = disponibilitatHabitacions.get(TipoHabitacio);
-            //  totatDisponible--;
-            //  disponibilitatHabitacions.put(TipoHabitacio,totatDisponible);
+            break;            
+    
        }
     }
 
@@ -485,10 +481,7 @@ public class App {
         // TODO: Mostrar dades d'una reserva concreta
 
         int codi;
-        boolean existeix = false;
-
-        // cree un ArraYList per guardar els valors a mostrar, ya que per defecte venen amb el preu
-        ArrayList <String> dadesReserva = new ArrayList<>(); 
+        boolean existeix = false;        
 
        codi = llegirEnter("\nIntrodueix el codi de reserva: "); // demane el codi
        
@@ -500,24 +493,9 @@ public class App {
        }
           
        if (existeix){
-
-            // Obtinc els camps de serveis extra y els copie en el ArrayList
-            for (String st : reserves.get(codi)){
-
-                    dadesReserva.add(st);        
-
-            }
-            // Imprimisc els valors de la reserva
-            System.out.println("\nDades de la reserva: \n");
-            System.out.println("* Tipus d'habitació: " + dadesReserva.get(0));
-            System.out.println("* Cost total: " + dadesReserva.get(1) + " €");
-            System.out.println("* Serveis addicionals: ");
-
-            // Si el campo NO esta vuit, l'imprimisc.
-            if(!dadesReserva.get(2).equals("")) System.out.println("    - Esmorzar");
-            if(!dadesReserva.get(3).equals("")) System.out.println("    - Gimnàs");
-            if(!dadesReserva.get(4).equals("")) System.out.println("    - Spa");
-            if(!dadesReserva.get(5).equals("")) System.out.println("    - Piscina");
+                System.out.println("\nDades de la reserva: \n");
+                mostrarDadesReserva(codi);
+            
 
        } else System.out.println("\nNo s'ha trobat cap reserva amb aquest codi.\n"); // si no trova el codi mostra avis.
 
@@ -530,6 +508,57 @@ public class App {
     public static void obtindreReservaPerTipus() {
         System.out.println("\n===== CONSULTAR RESERVES PER TIPUS =====");
         // TODO: Llistar reserves per tipus
+
+        int opcio = 0;
+        String tipo =""; 
+
+        do{
+            System.out.println("Seleccione tipus: ");
+            System.out.println("1. Estàndard");
+            System.out.println("2. Suite");
+            System.out.println("3. Deluxe");
+
+            opcio = llegirEnter("Opcio: ");          
+            
+            switch (opcio) {
+                case 1: tipo="Estàndard";                    
+                    break;
+                case 2: tipo="Suite";                    
+                    break;
+                case 3: tipo="Deluxe";                    
+                    break;
+            
+                default: System.out.println("\n Elegix una opcio correcta. \n"); opcio = 0;
+                    break;
+            }
+
+
+        }while(opcio==0);
+
+        System.out.println("\nReserves del tipus: " + tipo);
+        boolean trobades= false;
+        
+        // busque reserva per reserva, quina es del tipus indicat. 
+
+        // el for torna tots el codis de les reserves i sabent el codi busque els valors. 
+        // He vist que ficant reserves.get(cod).get(0) em mostra un camp del array del HashMap. 
+        // Antes ho he fet amb un for y un array, perque no sabia que es podia aixi.       
+        // Mire si en el camp habitacion es del tipus demanat, i entonces envie el codi a mostrarDadesReserva.
+        for(Integer cod : reserves.keySet()){
+            
+            // Mire si en el camp habitacion es del tipus demanat, i entonces envie el codi a mostrarDadesReserva.
+            if (reserves.get(cod).get(0).equals(tipo)){ 
+
+                System.out.println("\nCodi: " + cod);
+                mostrarDadesReserva(cod);
+                trobades=true;
+            }
+       }
+        // si s'han trobat al menys una reserva, indique que no hi han mes. 
+        // si no s'ha trobat cap, indique que no hi han.
+       if (trobades) System.out.println("\nNo hi ha més reserves d’aquest tipus.)");
+       else System.out.println("No hi ha reserves d’aquest tipus.");
+
     }
 
     /**
@@ -537,6 +566,30 @@ public class App {
      */
     public static void mostrarDadesReserva(int codi) {
        // TODO: Imprimir tota la informació d'una reserva
+
+       
+
+        // cree un ArraYList per guardar els valors a mostrar, ya que per defecte venen amb el preu
+        ArrayList <String> dadesReserva = new ArrayList<>(); 
+
+       // Obtinc els camps de serveis extra y els copie en el ArrayList
+            for (String st : reserves.get(codi)){
+
+                    dadesReserva.add(st);        
+
+            }
+            // Imprimisc els valors de la reserva
+            
+            System.out.println("* Tipus d'habitació: " + dadesReserva.get(0));
+            System.out.println("* Cost total: " + dadesReserva.get(1) + " €");
+            System.out.println("* Serveis addicionals: ");
+
+            // Si el campo NO esta vuit, l'imprimisc.
+            if(!dadesReserva.get(2).equals("")) System.out.println("    - Esmorzar");
+            if(!dadesReserva.get(3).equals("")) System.out.println("    - Gimnàs");
+            if(!dadesReserva.get(4).equals("")) System.out.println("    - Spa");
+            if(!dadesReserva.get(5).equals("")) System.out.println("    - Piscina");
+
     }
 
     // --------- MÈTODES AUXILIARS (PER MILLORAR LEGIBILITAT) ---------
